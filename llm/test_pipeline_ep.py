@@ -1,19 +1,21 @@
 import datetime
 import os
-from lmdeploy import pipeline, PytorchEngineConfig
+
+import torch.distributed as dist
+from lmdeploy import PytorchEngineConfig, pipeline
 from lmdeploy.messages import GenerationConfig
 from lmdeploy.serve.openai.api_server import handle_torchrun
-import torch.distributed as dist
+
 
 def main(rank: int):
-    model_path ='Qwen/Qwen3-30B-A3B-FP8'
+    model_path = 'Qwen/Qwen3-30B-A3B-FP8'
 
     log_level = 'WARNING'
     prompts = [
         'fast fox jump over the lazy dog.',
         'fast fox jump over the lazy dog.',
-        ]
-    prompts = prompts[rank:rank+1]
+    ]
+    prompts = prompts[rank:rank + 1]
 
     backend_config = PytorchEngineConfig(
         tp=1,
@@ -36,6 +38,7 @@ def main(rank: int):
         print(outputs)
 
         dist.barrier()
+
 
 if __name__ == '__main__':
     handle_torchrun()

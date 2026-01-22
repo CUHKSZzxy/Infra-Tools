@@ -1,4 +1,5 @@
 from openai import OpenAI
+
 client = OpenAI(api_key='YOUR_API_KEY', base_url='http://0.0.0.0:8001/v1')
 model_name = client.models.list().data[0].id
 
@@ -13,8 +14,7 @@ response = client.chat.completions.create(
         }, {
             'type': 'image_url',
             'image_url': {
-                'url':
-                'https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg',
+                'url': 'https://raw.githubusercontent.com/open-mmlab/mmdeploy/main/tests/data/tiger.jpeg',
             },
         }],
     }],
