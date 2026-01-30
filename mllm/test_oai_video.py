@@ -36,4 +36,4 @@ chat_completion_from_url = client.chat.completions.create(
 )
 
 result = chat_completion_from_url.choices[0].message.content
-print('Chat completion output from image url:\n', result)
+print('Chat completion output:\n', result)
